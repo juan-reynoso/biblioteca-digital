@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2025 a las 10:28:37
+-- Tiempo de generación: 16-07-2025 a las 05:59:49
 -- Versión del servidor: 11.3.2-MariaDB-log
 -- Versión de PHP: 8.2.12
 
@@ -2765,7 +2765,8 @@ INSERT INTO `autores` (`id_Autor`, `Nombre_Autor`) VALUES
 (2704, 'Camilo Janania Abrahan'),
 (2705, 'William Navidi'),
 (2706, 'Leland Blank'),
-(2707, 'Diego');
+(2707, 'Diego'),
+(2708, 'Arisbeth');
 
 -- --------------------------------------------------------
 
@@ -2779,6 +2780,17 @@ CREATE TABLE `bitacora` (
   `accion` text NOT NULL,
   `fecha` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `bitacora`
+--
+
+INSERT INTO `bitacora` (`id`, `usuario`, `accion`, `fecha`) VALUES
+(1, 'Marco Espinoza', 'Actualización de usuario ID 9', '2025-07-15 04:27:11'),
+(2, 'Marco Espinoza', 'Actualización de usuario ID 2', '2025-07-15 04:39:36'),
+(3, 'Marco Espinoza', 'Actualización de usuario ID 2', '2025-07-15 04:40:07'),
+(4, 'Marco Espinoza', 'Actualización de usuario ID 2', '2025-07-15 18:27:48'),
+(5, 'Marco Espinoza', 'Actualización de usuario ID 2', '2025-07-15 18:28:10');
 
 -- --------------------------------------------------------
 
@@ -2845,8 +2857,8 @@ CREATE TABLE `consulta` (
 --
 
 INSERT INTO `consulta` (`id_Consulta`, `fecha`, `criterio_busqueda`, `termino_busqueda`, `id_Usuario`, `carrera_usuario`, `id_Libro`) VALUES
-(2426, '2025-07-11 02:15:13', 'autor', 'DEIA', NULL, NULL, 4),
-(2427, '2025-07-11 02:25:16', 'autor', 'ROLANDO ARELLANO CUEVA', 5, 'Sistemas', 395);
+(3596, '2025-07-14 22:05:59', 'autor', 'FREDERIC H. MARTINI', 5, 'Sistemas', 1),
+(3597, '2025-07-14 22:05:59', 'autor', 'FREDERIC H. MARTINI', 5, 'Sistemas', 2713);
 
 -- --------------------------------------------------------
 
@@ -6950,7 +6962,9 @@ INSERT INTO `detalle_autor` (`id_Autor`, `id_Libro`) VALUES
 (2704, 4105),
 (2705, 4106),
 (2706, 4107),
-(2707, 4109);
+(2707, 4109),
+(2707, 4110),
+(2708, 4111);
 
 -- --------------------------------------------------------
 
@@ -12813,7 +12827,9 @@ INSERT INTO `libros` (`id_Libro`, `titulo`, `id_Editorial`, `año_Adquisicion`, 
 (4106, 'Manual de Seguridad e Higiene Industrial', 19, 2024, NULL),
 (4107, 'Estadística para Ingenieros y Científicos', 20, 2022, NULL),
 (4108, 'Ingeniería Económica', 21, 2020, NULL),
-(4109, 'Prueba', 835, NULL, '2025-07-10');
+(4109, 'Prueba', 835, NULL, '2025-07-10'),
+(4110, 'Prueba', 1101, NULL, '2025-07-11'),
+(4111, 'Prueba', 1098, NULL, '2025-07-11');
 
 -- --------------------------------------------------------
 
@@ -14551,6 +14567,7 @@ INSERT INTO `libros_carreras` (`id_Libro`, `id_Carrera`) VALUES
 (1802, 1),
 (1803, 1),
 (4109, 1),
+(4110, 1),
 (2642, 2),
 (2643, 2),
 (2644, 2),
@@ -16834,6 +16851,7 @@ INSERT INTO `libros_carreras` (`id_Libro`, `id_Carrera`) VALUES
 (3918, 7),
 (3919, 7),
 (3920, 7),
+(4111, 7),
 (4087, 8),
 (4088, 8),
 (4089, 8),
@@ -17068,7 +17086,72 @@ INSERT INTO `visitas` (`id`, `usuario_id`, `tipo_usuario`, `pagina`, `fecha`) VA
 (70, NULL, 'admin', 'login', '2025-07-11 02:14:07'),
 (73, NULL, 'admin', 'login', '2025-07-11 02:24:30'),
 (74, 5, 'alumno', 'login', '2025-07-11 02:24:55'),
-(75, NULL, 'admin', 'login', '2025-07-11 02:25:34');
+(75, NULL, 'admin', 'login', '2025-07-11 02:25:34'),
+(76, NULL, 'admin', 'login', '2025-07-11 12:34:04'),
+(77, 5, 'alumno', 'login', '2025-07-11 12:34:20'),
+(78, NULL, 'admin', 'login', '2025-07-11 12:34:37'),
+(79, 5, 'alumno', 'login', '2025-07-11 12:53:08'),
+(80, NULL, 'admin', 'login', '2025-07-11 12:53:48'),
+(81, 4, 'alumno', 'login', '2025-07-11 12:56:58'),
+(82, NULL, 'admin', 'login', '2025-07-11 13:05:34'),
+(83, 4, 'alumno', 'login', '2025-07-11 13:06:22'),
+(84, NULL, 'admin', 'login', '2025-07-11 13:07:22'),
+(85, 5, 'alumno', 'login', '2025-07-11 13:19:40'),
+(86, NULL, 'admin', 'login', '2025-07-11 13:20:00'),
+(87, 5, 'alumno', 'login', '2025-07-11 13:38:49'),
+(88, 5, 'alumno', 'login', '2025-07-11 13:39:17'),
+(89, NULL, 'admin', 'login', '2025-07-11 13:39:34'),
+(90, NULL, 'admin', 'login', '2025-07-11 13:47:48'),
+(91, 5, 'alumno', 'login', '2025-07-11 13:55:16'),
+(92, NULL, 'admin', 'login', '2025-07-11 13:56:44'),
+(93, 5, 'alumno', 'login', '2025-07-11 13:58:29'),
+(94, NULL, 'admin', 'login', '2025-07-11 13:59:09'),
+(95, 4, 'alumno', 'login', '2025-07-11 14:01:48'),
+(96, 5, 'alumno', 'login', '2025-07-11 14:03:24'),
+(97, 5, 'alumno', 'login', '2025-07-11 14:04:26'),
+(98, NULL, 'admin', 'login', '2025-07-11 14:13:25'),
+(99, NULL, 'docente', 'login', '2025-07-11 14:20:58'),
+(100, NULL, 'admin', 'login', '2025-07-11 14:22:27'),
+(101, NULL, 'admin', 'login', '2025-07-11 14:39:20'),
+(102, 5, 'alumno', 'login', '2025-07-11 14:39:24'),
+(103, NULL, 'admin', 'login', '2025-07-11 14:41:04'),
+(104, 5, 'alumno', 'login', '2025-07-11 22:26:26'),
+(105, NULL, 'admin', 'login', '2025-07-11 22:26:54'),
+(106, 5, 'alumno', 'login', '2025-07-11 22:30:32'),
+(107, NULL, 'admin', 'login', '2025-07-11 22:30:47'),
+(108, NULL, 'admin', 'login', '2025-07-14 19:17:34'),
+(109, 5, 'alumno', 'login', '2025-07-14 19:24:51'),
+(110, NULL, 'admin', 'login', '2025-07-14 19:25:39'),
+(111, 5, 'alumno', 'login', '2025-07-14 19:26:12'),
+(112, NULL, 'admin', 'login', '2025-07-14 19:49:31'),
+(113, 5, 'alumno', 'login', '2025-07-14 19:50:45'),
+(114, NULL, 'admin', 'login', '2025-07-14 19:51:02'),
+(115, 5, 'alumno', 'login', '2025-07-14 19:51:25'),
+(116, NULL, 'admin', 'login', '2025-07-14 19:55:46'),
+(117, 5, 'alumno', 'login', '2025-07-14 20:04:45'),
+(118, NULL, 'admin', 'login', '2025-07-14 20:17:55'),
+(119, NULL, 'admin', 'login', '2025-07-14 21:02:18'),
+(120, 5, 'alumno', 'login', '2025-07-14 21:02:30'),
+(121, 5, 'alumno', 'login', '2025-07-14 21:05:50'),
+(122, NULL, 'admin', 'login', '2025-07-14 21:06:23'),
+(123, 5, 'alumno', 'login', '2025-07-14 21:06:34'),
+(124, NULL, 'admin', 'login', '2025-07-14 21:06:49'),
+(125, NULL, 'admin', 'login', '2025-07-14 21:27:41'),
+(126, NULL, 'admin', 'login', '2025-07-14 22:04:52'),
+(127, 5, 'alumno', 'login', '2025-07-14 22:05:23'),
+(128, NULL, 'admin', 'login', '2025-07-14 22:21:16'),
+(129, 5, 'alumno', 'login', '2025-07-14 22:31:55'),
+(130, 5, 'alumno', 'login', '2025-07-14 22:34:45'),
+(131, NULL, 'admin', 'login', '2025-07-14 22:36:01'),
+(132, NULL, 'admin', 'login', '2025-07-14 22:36:14'),
+(133, NULL, 'admin', 'login', '2025-07-14 22:36:59'),
+(134, 5, 'alumno', 'login', '2025-07-14 22:37:42'),
+(135, NULL, 'admin', 'login', '2025-07-14 22:39:29'),
+(136, NULL, 'admin', 'login', '2025-07-15 12:15:23'),
+(137, 5, 'alumno', 'login', '2025-07-15 12:16:21'),
+(138, 5, 'alumno', 'login', '2025-07-15 12:26:46'),
+(139, NULL, 'admin', 'login', '2025-07-15 12:27:37'),
+(140, NULL, 'admin', 'login', '2025-07-15 21:55:41');
 
 --
 -- Índices para tablas volcadas
@@ -17170,25 +17253,25 @@ ALTER TABLE `visitas`
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `id_Autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2708;
+  MODIFY `id_Autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2709;
 
 --
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `carrusel_imagenes`
 --
 ALTER TABLE `carrusel_imagenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `consulta`
 --
 ALTER TABLE `consulta`
-  MODIFY `id_Consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2428;
+  MODIFY `id_Consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3598;
 
 --
 -- AUTO_INCREMENT de la tabla `ejemplares`
@@ -17200,19 +17283,19 @@ ALTER TABLE `ejemplares`
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `id_Libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4110;
+  MODIFY `id_Libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4112;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `visitas`
 --
 ALTER TABLE `visitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- Restricciones para tablas volcadas
