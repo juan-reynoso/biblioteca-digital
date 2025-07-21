@@ -30,8 +30,11 @@ if ($criterio === 'carrera') {
 // Validar criterio
 $columnasPermitidas = ['titulo', 'autor', 'carrera'];
 if (!in_array($criterio, $columnasPermitidas)) {
+   alert("Criterio de búsqueda no válido");
     die("Criterio de búsqueda no válido");
+    
 }
+   alert("todo bien");
 
 try {
     // Consulta para obtener libros

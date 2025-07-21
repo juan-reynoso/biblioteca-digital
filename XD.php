@@ -133,7 +133,7 @@
                 </div>
                 
                 <div class="text-center">
-                    <a href="Logout.php" class="btn btn-burgundy px-4">
+                    <a href="logout.php" class="btn btn-burgundy px-4">
                         <i class="fas fa-home me-2"></i> Cerrar Sesión
                     </a>
                 </div>

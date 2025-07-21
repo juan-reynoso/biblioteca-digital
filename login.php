@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // 2. Verificar si es usuario general
-    $usuario = validarUsuario($conn, "Usuarios", "No_control_social", $no_social, $curp);
+    $usuario = validarUsuario($conn, "usuarios", "No_control_social", $no_social, $curp);
     if ($usuario) {
         $_SESSION['usuario'] = $usuario;
         $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'] ?? 'alumno';
@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             case 'alumno':
             default:
-                header("Location: principal.php");
+                header("Location: Principal.php");
                 exit();
         }
     }

@@ -2,6 +2,11 @@
 // Inicio simple de sesión
 session_start();
 
+$autoloadPath = __DIR__ . '/vendor/autoload.php';
+require $autoloadPath;
+use Dompdf\Dompdf; 
+
+
 // Verificación mejorada de administrador
 if (!isset($_SESSION['admin_logged_in'])) {
     // Destruir sesión previa por seguridad
@@ -153,18 +158,23 @@ if (isset($_GET['export'])) {
     $connected = @fsockopen("www.google.com", 80);
     if (!$connected) {
         $_SESSION['error'] = "Se requiere conexión a internet para generar gráficas";
-        header("Location: admin.php");
-        exit();
+//        header("Location: admin.php");
+        //exit();
     }
     fclose($connected);
     
-    $autoloadPath = __DIR__ . '/vendor/autoload.php';
+   // $autoloadPath = __DIR__ . '/vendor/autoload.php';
     
     if (!file_exists($autoloadPath)) {
         die("Error: Primero debes instalar DomPDF con Composer. Ejecuta: composer require dompdf/dompdf");
     }
     
-    require_once $autoloadPath;
+    //require $autoloadPath;
+    //echo "Iniciando <br>";
+    //var_dump(class_exists('Dompdf\Dompdf'));
+    //use Dompdf\Dompdf;
+
+    echo "Todo Bien";
     
     switch ($_GET['export']) {
         case 'consultas':
@@ -177,7 +187,7 @@ if (isset($_GET['export'])) {
             break;
             
         default:
-            header("Location: admin.php");
+//            header("Location: admin.php");
             exit();
     }
 }
@@ -185,6 +195,8 @@ if (isset($_GET['export'])) {
  * Genera PDF para el historial de consultas/búsquedas
  */
 function generarPdfConsultas($conn, $filtro_criterio, $filtro_termino) {
+
+
     // Obtener consultas con los mismos filtros que en la vista principal
     $consultas = [];
     $sql = "SELECT c.*, 
@@ -192,9 +204,9 @@ function generarPdfConsultas($conn, $filtro_criterio, $filtro_termino) {
             l.titulo as libro, 
             COALESCE(c.carrera_usuario, u_carrera.Nombre) as carrera
             FROM consulta c
-            LEFT JOIN Usuarios u ON c.id_Usuario = u.id_Usuario
-            LEFT JOIN Libros l ON c.id_Libro = l.id_Libro
-            LEFT JOIN Usuarios u2 ON c.id_Usuario = u2.id_Usuario
+            LEFT JOIN usuarios u ON c.id_Usuario = u.id_Usuario
+            LEFT JOIN libros l ON c.id_Libro = l.id_Libro
+            LEFT JOIN usuarios u2 ON c.id_Usuario = u2.id_Usuario
             LEFT JOIN carrera u_carrera ON u2.id_carrera = u_carrera.id_Carrera";
     
     $conditions = [];
@@ -281,12 +293,14 @@ function generarPdfConsultas($conn, $filtro_criterio, $filtro_termino) {
     $html .= '</body></html>';
     
     // Generar PDF
-    $dompdf = new Dompdf\Dompdf();
+    $dompdf = new Dompdf();
     $dompdf->loadHtml($html);
     $dompdf->setPaper('A4', 'landscape'); // Usar landscape para mejor visualización de la tabla
     $dompdf->render();
-    $dompdf->stream("reporte_consultas_" . date('Y-m-d') . ".pdf", ["Attachment" => true]);
+    $dompdf->stream("reporte_consultas_" . date('Y-m-d') . ".pdf", ["Attachment" => false]);
     exit();
+
+
 }
 // ========== EXPORTACIÓN A PDF ==========
 if (isset($_GET['export'])) {
@@ -502,7 +516,7 @@ switch($periodo) {
     ]);
     
     // Crear instancia de DomPDF
-    $dompdf = new Dompdf\Dompdf();
+    $dompdf = new Dompdf();
     
     // HTML del reporte
     $html = '
@@ -623,13 +637,13 @@ switch($periodo) {
 }
 
 // Configuración de rutas para imágenes
-$baseDir = $_SERVER['DOCUMENT_ROOT'] . '/Web/SISTEMA BIBLIOTECARIO/';
-$uploadDir = $baseDir . 'Imagenes Carussel/';
-$webPath = '/Web/SISTEMA BIBLIOTECARIO/Imagenes Carussel/';
+$baseDir = $_SERVER['DOCUMENT_ROOT'] . '/Web/biblioteca-digital/';
+$uploadDir = $baseDir . 'Imagenes-Carussel/';
+$webPath = '/Web/biblioteca-digital/Imagenes-Carussel/';
 
 if (!file_exists($uploadDir)) {
-    if (!mkdir($uploadDir, 0755, true)) {
-        $_SESSION['error'] = "No se pudo crear el directorio de imágenes.";
+    if (!mkdir($uploadDir, 0766, true)) {
+        $_SESSION['error'] = "No se pudo crear el directorio de imágenes." . $uploadDir;
         header("Location: admin.php");
         exit();
     }
@@ -703,12 +717,14 @@ if ($result) {
     $_SESSION['error'] = "Error al cargar imágenes: " . $conn->error;
 }
 
+
 // Obtener usuarios con información de carrera
+//  jreynoso
 $usuarios = [];
 $result_usuarios = $conn->query("
     SELECT u.id_Usuario, u.Nombre, u.tipo_usuario, u.CURP, u.No_control_social, 
            c.id_carrera, c.nombre as nombre_carrera 
-    FROM Usuarios u
+    FROM usuarios u
     LEFT JOIN carrera c ON u.id_carrera = c.id_carrera
     ORDER BY u.tipo_usuario DESC
 ");
@@ -717,6 +733,7 @@ if ($result_usuarios) {
 } else {
     $_SESSION['error'] = "Error al cargar usuarios: " . $conn->error;
 }
+
 
 // Obtener carreras para el modal de edición
 $carreras = [];

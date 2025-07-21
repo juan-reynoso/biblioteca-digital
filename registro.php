@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $patron_curp = '/^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9A-Z]{2}$/';
     
     // Validaciones
-    $errores = [];
+       $errores = [];
     
     if (empty($nombre) || strlen($nombre) > 255) {
         $errores[] = "El nombre es requerido y no debe exceder 255 caracteres";
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Verificar si el número de control ya existe
     if (empty($errores)) {
-        $stmt = $conn->prepare("SELECT id_Usuario FROM Usuarios WHERE No_control_social = ?");
+        $stmt = $conn->prepare("SELECT id_Usuario FROM usuarios WHERE No_control_social = ?");
         $stmt->bind_param("s", $no_control);
         $stmt->execute();
         $stmt->store_result();
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errores)) {
         try {
             $stmt = $conn->prepare("
-                INSERT INTO Usuarios (Nombre, CURP, id_Carrera, No_control_social, tipo_usuario)
+                INSERT INTO usuarios (Nombre, CURP, id_Carrera, No_control_social, tipo_usuario)
                 VALUES (?, ?, ?, ?, ?)
             ");
             $stmt->bind_param("ssiis", $nombre, $curp, $id_carrera, $no_control, $tipo_usuario);
